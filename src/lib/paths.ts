@@ -8,7 +8,7 @@ import { SITE } from "../config/site";
  * base/lang manually.
  */
 export function localePath(lang: string, segment: string = ""): string {
-  const base = SITE.base.replace(/\/$/, "");
+  const base = SITE.base.replace(/^\/|\/$/g, "");
   const clean = segment.replace(/^\/+|\/+$/g, "");
   const parts = [base, lang, clean].filter(Boolean);
   return "/" + parts.join("/") + "/";
