@@ -281,6 +281,356 @@ export const SEO_PAGES: SeoPage[] = [
       },
     },
   },
+  {
+    id: "random-chat-germany",
+    topic: "random-chat",
+    countrySlug: "germany",
+    keyword: "random chat with people from Germany",
+    intent: "country-specific-chat",
+    cta: "startRandomChat",
+    relatedTopics: ["random-chat", "language-exchange"],
+    content: {
+      pl: {
+        title: "Losowy czat z osobami z Niemiec | HEYID",
+        description:
+          "Rozmawiaj losowo z osobami z Niemiec na HEYID. Automatyczne tłumaczenie ułatwia rozmowę, nawet jeśli piszecie różnymi językami.",
+        h1: "Losowy czat z osobami z Niemiec",
+        intro:
+          "Chcesz trafić akurat na kogoś z Niemiec? HEYID losuje rozmówcę i od razu tłumaczy wiadomości między językami.",
+        body: [
+          "Nie musisz znać niemieckiego, żeby swobodnie rozmawiać — piszesz po polsku, druga osoba czyta po niemiecku, i odwrotnie.",
+          "To dobry sposób, żeby przy okazji osłuchać się z językiem sąsiada, bez presji mówienia od razu poprawnie.",
+        ],
+      },
+      en: {
+        title: "Random Chat with People from Germany | HEYID",
+        description:
+          "Chat randomly with people from Germany on HEYID. Automatic translation makes the conversation easy even across languages.",
+        h1: "Random chat with people from Germany",
+        intro:
+          "Want to match specifically with someone from Germany? HEYID picks a random partner and translates messages between languages instantly.",
+        body: [
+          "You don't need to speak German to have a real conversation — you write in your language, they read in theirs, and vice versa.",
+          "It's also a low-pressure way to pick up some German along the way, without needing to get it perfect from the start.",
+        ],
+      },
+    },
+  },
+  {
+    id: "random-chat-spain",
+    topic: "random-chat",
+    countrySlug: "spain",
+    keyword: "random chat with people from Spain",
+    intent: "country-specific-chat",
+    cta: "startRandomChat",
+    relatedTopics: ["random-chat", "language-exchange"],
+    content: {
+      pl: {
+        title: "Losowy czat z osobami z Hiszpanii | HEYID",
+        description:
+          "Rozmawiaj losowo z osobami z Hiszpanii na HEYID. Wiadomości tłumaczą się automatycznie, więc hiszpański nie jest barierą.",
+        h1: "Losowy czat z osobami z Hiszpanii",
+        intro:
+          "Losowa rozmowa z kimś z Hiszpanii to szansa na nową znajomość i kontakt z innym stylem rozmowy — bez potrzeby znajomości hiszpańskiego.",
+        body: [
+          "HEYID tłumaczy wiadomości w obie strony, więc rozmowa toczy się naturalnie, nawet jeśli żadna ze stron nie zna języka drugiej osoby.",
+          "Jeśli akurat uczysz się hiszpańskiego, taka rozmowa to praktyczna okazja, żeby zobaczyć język w codziennym użyciu.",
+        ],
+      },
+      en: {
+        title: "Random Chat with People from Spain | HEYID",
+        description:
+          "Chat randomly with people from Spain on HEYID. Messages are translated automatically, so Spanish isn't a barrier.",
+        h1: "Random chat with people from Spain",
+        intro:
+          "A random chat with someone from Spain is a chance for a new connection and a different conversational style — no Spanish required.",
+        body: [
+          "HEYID translates messages both ways, so the conversation flows naturally even if neither side speaks the other's language.",
+          "If you're learning Spanish, this kind of chat is a practical way to see the language used in everyday context.",
+        ],
+      },
+    },
+  },
+  {
+    id: "random-chat-france",
+    topic: "random-chat",
+    countrySlug: "france",
+    keyword: "random chat with people from France",
+    intent: "country-specific-chat",
+    cta: "startRandomChat",
+    relatedTopics: ["random-chat", "language-exchange"],
+    content: {
+      pl: {
+        title: "Losowy czat z osobami z Francji | HEYID",
+        description:
+          "Rozmawiaj losowo z osobami z Francji na HEYID. Automatyczne tłumaczenie sprawia, że francuski nie jest przeszkodą w rozmowie.",
+        h1: "Losowy czat z osobami z Francji",
+        intro:
+          "HEYID pozwala trafić na losową osobę z Francji i od razu zacząć rozmowę — bez znajomości francuskiego.",
+        body: [
+          "Wiadomości tłumaczone są automatycznie w czasie rzeczywistym, więc możesz pisać po polsku, a druga osoba przeczyta wszystko po francusku.",
+          "To wygodny sposób na poznanie kogoś nowego bez wcześniejszego researchu, o czym rozmawiać — SPARX podpowie, jeśli zabraknie pomysłów.",
+        ],
+      },
+      en: {
+        title: "Random Chat with People from France | HEYID",
+        description:
+          "Chat randomly with people from France on HEYID. Automatic translation means French isn't a barrier to the conversation.",
+        h1: "Random chat with people from France",
+        intro:
+          "HEYID can match you with a random person from France and get the conversation started right away — no French needed.",
+        body: [
+          "Messages are translated automatically in real time, so you can write in your language and the other person reads it all in French.",
+          "It's a convenient way to meet someone new without prior research on what to talk about — SPARX can help if you run out of ideas.",
+        ],
+      },
+    },
+  },
+  {
+    id: "random-chat-japan",
+    topic: "random-chat",
+    countrySlug: "japan",
+    keyword: "random chat with people from Japan",
+    intent: "country-specific-chat",
+    cta: "startRandomChat",
+    relatedTopics: ["random-chat", "language-exchange"],
+    content: {
+      pl: {
+        title: "Losowy czat z osobami z Japonii | HEYID",
+        description:
+          "Rozmawiaj losowo z osobami z Japonii na HEYID. Tłumaczenie wiadomości działa automatycznie, więc japoński nie jest przeszkodą.",
+        h1: "Losowy czat z osobami z Japonii",
+        intro:
+          "Rozmowa z kimś z Japonii zwykle oznacza inny alfabet i inny sposób pisania — HEYID tłumaczy to wszystko na bieżąco.",
+        body: [
+          "Piszesz normalnie po polsku, a druga osoba czyta wiadomość już przetłumaczoną na japoński — i odwrotnie, gdy odpisuje.",
+          "To dobra okazja, żeby dowiedzieć się czegoś o codziennym życiu w Japonii bezpośrednio od kogoś stamtąd.",
+        ],
+      },
+      en: {
+        title: "Random Chat with People from Japan | HEYID",
+        description:
+          "Chat randomly with people from Japan on HEYID. Message translation happens automatically, so Japanese isn't a barrier.",
+        h1: "Random chat with people from Japan",
+        intro:
+          "Talking to someone from Japan usually means a different alphabet and writing style — HEYID translates all of it on the fly.",
+        body: [
+          "You write normally in your language, and the other person reads it already translated into Japanese — and the same when they reply.",
+          "It's a good chance to learn something about everyday life in Japan straight from someone who lives it.",
+        ],
+      },
+    },
+  },
+  {
+    id: "random-chat-united-states",
+    topic: "random-chat",
+    countrySlug: "united-states",
+    keyword: "random chat with people from the United States",
+    intent: "country-specific-chat",
+    cta: "startRandomChat",
+    relatedTopics: ["random-chat", "language-exchange"],
+    content: {
+      pl: {
+        title: "Losowy czat z osobami ze Stanów Zjednoczonych | HEYID",
+        description:
+          "Rozmawiaj losowo z osobami ze Stanów Zjednoczonych na HEYID. Tłumaczenie wiadomości ułatwia rozmowę, nawet jeśli nie znasz angielskiego biegle.",
+        h1: "Losowy czat z osobami ze Stanów Zjednoczonych",
+        intro:
+          "Nawet jeśli Twój angielski nie jest jeszcze na wysokim poziomie, HEYID pozwala swobodnie porozmawiać z kimś z USA.",
+        body: [
+          "Piszesz po polsku, druga osoba czyta po angielsku — tłumaczenie działa automatycznie w obie strony przez cały czas rozmowy.",
+          "To też praktyczny sposób na osłuchanie się z codziennym, potocznym angielskim, jakim rozmawiają rówieśnicy z USA.",
+        ],
+      },
+      en: {
+        title: "Random Chat with People from the United States | HEYID",
+        description:
+          "Chat randomly with people from the United States on HEYID. Message translation makes the conversation easy either way.",
+        h1: "Random chat with people from the United States",
+        intro:
+          "HEYID can match you with a random person from the United States and translate the conversation automatically as you go.",
+        body: [
+          "You write in your own language, they read it in English — and the same happens in reverse when they reply.",
+          "It's also a practical way to pick up everyday, conversational English the way people actually use it.",
+        ],
+      },
+    },
+  },
+  {
+    id: "talk-to-strangers-germany",
+    topic: "talk-to-strangers",
+    countrySlug: "germany",
+    keyword: "talk to strangers from Germany",
+    intent: "country-specific-chat",
+    cta: "talkToStrangers",
+    relatedTopics: ["talk-to-strangers", "random-chat"],
+    content: {
+      pl: {
+        title: "Rozmawiaj z nieznajomymi z Niemiec | HEYID",
+        description:
+          "Poznaj nieznajomych z Niemiec na HEYID i rozmawiaj bez bariery językowej dzięki automatycznemu tłumaczeniu wiadomości.",
+        h1: "Rozmowy z nieznajomymi z Niemiec",
+        intro:
+          "Nie trzeba znać nikogo wcześniej, żeby zacząć ciekawą rozmowę — HEYID łączy Cię z nieznajomymi z Niemiec w kilka sekund.",
+        body: [
+          "Automatyczne tłumaczenie sprawia, że różnica języków nie jest problemem — piszesz po swojemu, druga osoba czyta po niemiecku.",
+          "Jeśli rozmowa się urwie, SPARX podpowie, jak ją naturalnie kontynuować.",
+        ],
+      },
+      en: {
+        title: "Talk to Strangers from Germany | HEYID",
+        description:
+          "Meet strangers from Germany on HEYID and chat without a language barrier thanks to automatic message translation.",
+        h1: "Talk to strangers from Germany",
+        intro:
+          "You don't need to know anyone in advance to start an interesting conversation — HEYID connects you with strangers from Germany in seconds.",
+        body: [
+          "Automatic translation means the language difference isn't a problem — you write in your own language, they read it in German.",
+          "If the conversation stalls, SPARX can suggest a natural way to keep it going.",
+        ],
+      },
+    },
+  },
+  {
+    id: "talk-to-strangers-spain",
+    topic: "talk-to-strangers",
+    countrySlug: "spain",
+    keyword: "talk to strangers from Spain",
+    intent: "country-specific-chat",
+    cta: "talkToStrangers",
+    relatedTopics: ["talk-to-strangers", "random-chat"],
+    content: {
+      pl: {
+        title: "Rozmawiaj z nieznajomymi z Hiszpanii | HEYID",
+        description:
+          "Poznaj nieznajomych z Hiszpanii na HEYID i rozmawiaj bez bariery językowej dzięki automatycznemu tłumaczeniu wiadomości.",
+        h1: "Rozmowy z nieznajomymi z Hiszpanii",
+        intro:
+          "Rozmowa z kimś z Hiszpanii, kogo nigdy wcześniej nie znałeś, to jeden klik od Ciebie — reszta idzie sama.",
+        body: [
+          "Nie musisz znać hiszpańskiego — HEYID tłumaczy wiadomości na bieżąco, więc rozmowa toczy się naturalnie.",
+          "Powiadomienia dają znać, gdy druga osoba odpisze, więc łatwo wrócić do dobrze zapowiadającej się rozmowy.",
+        ],
+      },
+      en: {
+        title: "Talk to Strangers from Spain | HEYID",
+        description:
+          "Meet strangers from Spain on HEYID and chat without a language barrier thanks to automatic message translation.",
+        h1: "Talk to strangers from Spain",
+        intro:
+          "Talking to someone from Spain you've never met before is one tap away — the rest takes care of itself.",
+        body: [
+          "You don't need to speak Spanish — HEYID translates messages on the fly, so the conversation flows naturally.",
+          "Notifications let you know when the other person replies, so it's easy to return to a conversation that's off to a good start.",
+        ],
+      },
+    },
+  },
+  {
+    id: "talk-to-strangers-france",
+    topic: "talk-to-strangers",
+    countrySlug: "france",
+    keyword: "talk to strangers from France",
+    intent: "country-specific-chat",
+    cta: "talkToStrangers",
+    relatedTopics: ["talk-to-strangers", "random-chat"],
+    content: {
+      pl: {
+        title: "Rozmawiaj z nieznajomymi z Francji | HEYID",
+        description:
+          "Poznaj nieznajomych z Francji na HEYID i rozmawiaj bez bariery językowej dzięki automatycznemu tłumaczeniu wiadomości.",
+        h1: "Rozmowy z nieznajomymi z Francji",
+        intro:
+          "HEYID łączy Cię z nieznajomymi z Francji, żeby rozmowa mogła zacząć się od razu, bez formalności.",
+        body: [
+          "Piszesz w swoim języku, druga osoba czyta po francusku — tłumaczenie dzieje się automatycznie w tle.",
+          "To dobry sposób na poznanie nowej perspektywy, bez presji, że trzeba znać język rozmówcy.",
+        ],
+      },
+      en: {
+        title: "Talk to Strangers from France | HEYID",
+        description:
+          "Meet strangers from France on HEYID and chat without a language barrier thanks to automatic message translation.",
+        h1: "Talk to strangers from France",
+        intro:
+          "HEYID connects you with strangers from France so the conversation can start right away, without any formalities.",
+        body: [
+          "You write in your own language, they read it in French — translation happens automatically in the background.",
+          "It's a good way to hear a new perspective, without any pressure to know the other person's language.",
+        ],
+      },
+    },
+  },
+  {
+    id: "talk-to-strangers-japan",
+    topic: "talk-to-strangers",
+    countrySlug: "japan",
+    keyword: "talk to strangers from Japan",
+    intent: "country-specific-chat",
+    cta: "talkToStrangers",
+    relatedTopics: ["talk-to-strangers", "random-chat"],
+    content: {
+      pl: {
+        title: "Rozmawiaj z nieznajomymi z Japonii | HEYID",
+        description:
+          "Poznaj nieznajomych z Japonii na HEYID i rozmawiaj bez bariery językowej dzięki automatycznemu tłumaczeniu wiadomości.",
+        h1: "Rozmowy z nieznajomymi z Japonii",
+        intro:
+          "Inny alfabet i inna kultura nie muszą oznaczać bariery — HEYID tłumaczy rozmowę z kimś z Japonii na bieżąco.",
+        body: [
+          "Wiadomości tłumaczą się automatycznie w obie strony, więc możesz spokojnie pisać po polsku.",
+          "To okazja, żeby dowiedzieć się czegoś nowego o codziennym życiu w Japonii wprost od nieznajomej osoby stamtąd.",
+        ],
+      },
+      en: {
+        title: "Talk to Strangers from Japan | HEYID",
+        description:
+          "Meet strangers from Japan on HEYID and chat without a language barrier thanks to automatic message translation.",
+        h1: "Talk to strangers from Japan",
+        intro:
+          "A different alphabet and culture don't have to be a barrier — HEYID translates a conversation with someone from Japan as it happens.",
+        body: [
+          "Messages are translated automatically both ways, so you can write comfortably in your own language.",
+          "It's a chance to learn something new about everyday life in Japan straight from a stranger who lives it.",
+        ],
+      },
+    },
+  },
+  {
+    id: "talk-to-strangers-united-states",
+    topic: "talk-to-strangers",
+    countrySlug: "united-states",
+    keyword: "talk to strangers from the United States",
+    intent: "country-specific-chat",
+    cta: "talkToStrangers",
+    relatedTopics: ["talk-to-strangers", "random-chat"],
+    content: {
+      pl: {
+        title: "Rozmawiaj z nieznajomymi ze Stanów Zjednoczonych | HEYID",
+        description:
+          "Poznaj nieznajomych ze Stanów Zjednoczonych na HEYID i rozmawiaj bez bariery językowej dzięki automatycznemu tłumaczeniu.",
+        h1: "Rozmowy z nieznajomymi ze Stanów Zjednoczonych",
+        intro:
+          "HEYID pozwala rozpocząć rozmowę z nieznajomym ze Stanów Zjednoczonych bez wcześniejszego umawiania się.",
+        body: [
+          "Nawet jeśli Twój angielski nie jest perfekcyjny, tłumaczenie wiadomości sprawia, że rozmowa toczy się bez zająknięcia.",
+          "SPARX podpowie, co napisać, jeśli zabraknie Ci pomysłu na kolejną wiadomość.",
+        ],
+      },
+      en: {
+        title: "Talk to Strangers from the United States | HEYID",
+        description:
+          "Meet strangers from the United States on HEYID and chat without a language barrier thanks to automatic message translation.",
+        h1: "Talk to strangers from the United States",
+        intro:
+          "HEYID lets you start a conversation with a stranger from the United States without arranging it in advance.",
+        body: [
+          "Even if your English isn't perfect, message translation keeps the conversation flowing smoothly.",
+          "SPARX can suggest what to write if you run out of ideas for your next message.",
+        ],
+      },
+    },
+  },
 ];
 
 export function getSeoPageBySlug(topic: string, countrySlug?: string): SeoPage | undefined {
