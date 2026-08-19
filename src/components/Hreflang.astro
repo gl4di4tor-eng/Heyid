@@ -1,0 +1,29 @@
+---
+/**
+ * Renders <link rel="alternate" hreflang="..."> for every ENABLED language
+ * that has an equivalent page at the same `slug`, plus x-default.
+ * Pass slug="" for the homepage.
+ */
+import { ENABLED_LANGUAGES, DEFAULT_LANG } from "../config/languages";
+import { localePath, absoluteUrl } from "../lib/paths";
+
+interface Props {
+  slug?: string;
+  /** Restrict to languages that actually have this page (defaults to all enabled). */
+  availableLangs?: string[];
+}
+
+const { slug = "", availableLangs } = Astro.props;
+const langs = ENABLED_LANGUAGES.filter((l) =>
+  availableLangs ? availableLangs.includes(l.code) : true
+);
+---
+
+{langs.map((l) => (
+  <link rel="alternate" hreflang={l.code} href={absoluteUrl(localePath(l.code, slug))} />
+))}
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href={absoluteUrl(localePath(DEFAULT_LANG, slug))}
+/>

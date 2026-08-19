@@ -1,0 +1,118 @@
+---
+import { SITE } from "../config/site";
+import { FOOTER_NAV } from "../config/navigation";
+import { UI } from "../config/ui-strings";
+import { localePath } from "../lib/paths";
+
+interface Props {
+  lang: string;
+}
+const { lang } = Astro.props;
+const l = lang as "pl" | "en";
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container grid">
+    <div class="about">
+      <div class="brand">
+        <img src={`${SITE.base}logo.png`} alt={SITE.name} width="28" height="28" />
+        <span>{SITE.name}</span>
+      </div>
+      <p>{UI.footerTagline[l]}</p>
+    </div>
+
+    {Object.values(FOOTER_NAV).map((group) => (
+      <div class="col">
+        <h3>{group.title[l] ?? group.title.pl}</h3>
+        <ul>
+          {group.links.map((link) => (
+            <li>
+              <a href={localePath(lang, link.href)}>{link.label[l] ?? link.label.en}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <div class="container bottom">
+    <span>&copy; {year} {SITE.name}</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    margin-top: var(--space-24);
+    padding-block: var(--space-16) var(--space-8);
+    background: var(--bg-sunken);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .about .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-display);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+
+  .about .brand img {
+    border-radius: 6px;
+  }
+
+  .about p {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    max-width: 32ch;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  ul a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: var(--text-sm);
+  }
+
+  ul a:hover {
+    color: var(--accent);
+  }
+
+  .bottom {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+  }
+
+  @media (max-width: 720px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import { CTA, type CtaKey } from "../config/cta";
+import { downloadPath } from "../lib/paths";
+
+interface Props {
+  lang: string;
+  ctaKey?: CtaKey;
+  variant?: "solid" | "outline";
+  href?: string; // override, e.g. an in-page anchor
+}
+
+const { lang, ctaKey = "primary", variant = "solid", href } = Astro.props;
+const label = CTA[ctaKey][lang as "pl" | "en"] ?? CTA[ctaKey].en;
+const target = href ?? downloadPath(lang);
+---
+
+<a class={`cta cta--${variant}`} href={target}>
+  {label}
+</a>
+
+<style>
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--text-base);
+    padding: 0.85em 1.6em;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    white-space: nowrap;
+  }
+
+  .cta--solid {
+    background: var(--gradient-globe);
+    color: var(--text-on-brand);
+    box-shadow: var(--shadow-md);
+  }
+
+  .cta--solid:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cta--outline {
+    background: transparent;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+
+  .cta--outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+</style>

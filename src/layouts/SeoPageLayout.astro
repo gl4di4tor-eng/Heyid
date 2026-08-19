@@ -1,0 +1,169 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import CTAButton from "../components/CTAButton.astro";
+import { UI } from "../config/ui-strings";
+import { localePath } from "../lib/paths";
+import { getRelatedPages, type SeoPage } from "../config/seo-pages";
+
+interface Props {
+  lang: string;
+  page: SeoPage;
+}
+
+const { lang, page } = Astro.props;
+const l = lang as "pl" | "en";
+const content = page.content[l] ?? page.content.en;
+const slug = page.countrySlug ? `${page.topic}/${page.countrySlug}` : page.topic;
+const related = getRelatedPages(page);
+---
+
+<BaseLayout
+  lang={lang}
+  slug={slug}
+  title={content.title}
+  description={content.description}
+  schemaKind={content.faq?.length ? "FAQPage" : "WebPage"}
+>
+  <article class="seo-page">
+    <div class="container narrow">
+      <p class="eyebrow">HEYID</p>
+      <h1>{content.h1}</h1>
+      <p class="intro">{content.intro}</p>
+
+      <div class="cta-row">
+        <CTAButton lang={lang} ctaKey={page.cta} />
+      </div>
+
+      {content.body.map((paragraph) => (
+        <p class="body-text">{paragraph}</p>
+      ))}
+
+      {content.faq?.length ? (
+        <section class="faq">
+          <h2>{l === "pl" ? "Najczęstsze pytania" : "Frequently asked questions"}</h2>
+          {content.faq.map((f) => (
+            <div class="faq-item">
+              <h3>{f.question}</h3>
+              <p>{f.answer}</p>
+            </div>
+          ))}
+        </section>
+      ) : null}
+    </div>
+
+    {related.length > 0 && (
+      <div class="container narrow related">
+        <h2>{UI.relatedPages[l]}</h2>
+        <ul>
+          {related.map((r) => (
+            <li>
+              <a href={localePath(lang, r.topic)}>
+                {r.content[l]?.h1 ?? r.content.en.h1}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .seo-page {
+    padding-block: var(--space-16) var(--space-24);
+  }
+
+  .narrow {
+    max-width: 720px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: var(--text-xs);
+    margin-bottom: var(--space-3);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .intro {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    margin-bottom: var(--space-6);
+  }
+
+  .cta-row {
+    margin-bottom: var(--space-8);
+  }
+
+  .body-text {
+    font-size: var(--text-base);
+    line-height: 1.75;
+    margin-bottom: var(--space-4);
+  }
+
+  .faq {
+    margin-top: var(--space-12);
+  }
+
+  .faq h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .faq-item {
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-item h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .faq-item p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .related {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+  }
+
+  .related h2 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .related ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .related a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--accent-strong);
+    background: var(--bg-sunken);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .related a:hover {
+    background: var(--accent);
+    color: var(--text-on-brand);
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+import { SITE } from "../config/site";
+import { localePath } from "../lib/paths";
+import "../styles/tokens.css";
+
+const home = localePath(SITE.defaultLang);
+---
+
+<!doctype html>
+<html lang={SITE.defaultLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 — HEYID</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <main class="container" style="text-align:center; padding-block: 6rem;">
+      <h1 style="font-family: var(--font-display); font-size: 3rem;">404</h1>
+      <p style="color: var(--text-muted);">Strona nie została znaleziona / Page not found.</p>
+      <a href={home} style="color: var(--accent);">HEYID →</a>
+    </main>
+  </body>
+</html>

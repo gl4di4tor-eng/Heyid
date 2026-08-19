@@ -1,0 +1,22 @@
+---
+import { ENABLED_LANGUAGES } from "../../config/languages";
+import { SEO_PAGES } from "../../config/seo-pages";
+import SeoPageLayout from "../../layouts/SeoPageLayout.astro";
+
+export function getStaticPaths() {
+  return ENABLED_LANGUAGES.flatMap((lang) =>
+    SEO_PAGES.map((page) => ({
+      params: {
+        lang: lang.code,
+        slug: page.countrySlug ? `${page.topic}/${page.countrySlug}` : page.topic,
+      },
+      props: { page },
+    }))
+  );
+}
+
+const { lang } = Astro.params;
+const { page } = Astro.props;
+---
+
+<SeoPageLayout lang={lang!} page={page} />

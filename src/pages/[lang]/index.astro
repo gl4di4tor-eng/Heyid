@@ -1,0 +1,322 @@
+---
+import { ENABLED_LANGUAGES } from "../../config/languages";
+import { SITE } from "../../config/site";
+import { FEATURES } from "../../config/app";
+import { SPARX } from "../../config/sparx";
+import { PREMIUM_COPY, PREMIUM_FEATURES } from "../../config/premium";
+import { SEO_PAGES } from "../../config/seo-pages";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TranslationDemo from "../../components/TranslationDemo.astro";
+import CTAButton from "../../components/CTAButton.astro";
+import { localePath } from "../../lib/paths";
+
+export function getStaticPaths() {
+  return ENABLED_LANGUAGES.map((lang) => ({ params: { lang: lang.code } }));
+}
+
+const { lang } = Astro.params;
+const l = lang as "pl" | "en";
+
+const copy = {
+  pl: {
+    title: "HEYID — globalny czat z tłumaczeniem na żywo",
+    description:
+      "HEYID to globalna aplikacja do rozmów. Poznawaj ludzi z całego świata i rozmawiaj bez bariery językowej dzięki automatycznemu tłumaczeniu.",
+    heroKicker: "Globalny czat",
+    heroTitle: "Rozmawiaj ze światem. Bez bariery językowej.",
+    heroBody:
+      "HEYID łączy Cię z ludźmi z całego świata i tłumaczy wiadomości w czasie rzeczywistym — piszesz w swoim języku, druga osoba czyta w swoim.",
+    howTitle: "Jak to działa",
+    howBody:
+      "Otwierasz HEYID, rozpoczynasz rozmowę z nową osobą, a HEYID w tle tłumaczy wiadomości między Waszymi językami — bez dodatkowych aplikacji czy kopiowania tekstu.",
+    featuresTitle: "Co potrafi HEYID",
+    sparxTitle: "Poznaj SPARX",
+    sparxSubtitle: "Twój asystent AI w czacie",
+    premiumTitle: "Premium",
+    exploreTitle: "Zacznij od tego, czego szukasz",
+    exploreBody: "HEYID pasuje do różnych sposobów poznawania ludzi — wybierz swój punkt startu.",
+    downloadTitle: "Gotowy na pierwszą rozmowę?",
+    downloadBody: "Pobierz HEYID i zacznij rozmawiać z ludźmi z całego świata już dziś.",
+  },
+  en: {
+    title: "HEYID — Global Chat with Live Translation",
+    description:
+      "HEYID is a global chat app. Meet people from around the world and talk without a language barrier thanks to automatic translation.",
+    heroKicker: "Global chat",
+    heroTitle: "Chat with the world. No language barrier.",
+    heroBody:
+      "HEYID connects you with people from around the world and translates messages in real time — you write in your language, they read in theirs.",
+    howTitle: "How it works",
+    howBody:
+      "Open HEYID, start a conversation with someone new, and HEYID translates the messages between your languages in the background — no extra apps, no copy-pasting.",
+    featuresTitle: "What HEYID can do",
+    sparxTitle: "Meet SPARX",
+    sparxSubtitle: "Your in-chat AI assistant",
+    premiumTitle: "Premium",
+    exploreTitle: "Start with what you're looking for",
+    exploreBody: "HEYID fits different ways of meeting people — pick your starting point.",
+    downloadTitle: "Ready for your first conversation?",
+    downloadBody: "Download HEYID and start talking to people from around the world today.",
+  },
+}[l];
+
+const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
+---
+
+<BaseLayout lang={lang!} title={copy.title} description={copy.description} schemaKind="WebSite">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">{copy.heroKicker}</p>
+        <h1>{copy.heroTitle}</h1>
+        <p class="lede">{copy.heroBody}</p>
+        <div class="hero-actions">
+          <CTAButton lang={lang!} ctaKey="primary" />
+          <CTAButton lang={lang!} ctaKey="tryIt" variant="outline" href="#how" />
+        </div>
+      </div>
+      <div class="hero-visual">
+        <TranslationDemo lang={lang!} />
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="section">
+    <div class="container narrow center">
+      <h2>{copy.howTitle}</h2>
+      <p class="body-text">{copy.howBody}</p>
+    </div>
+  </section>
+
+  <section id="features" class="section alt">
+    <div class="container">
+      <h2 class="center">{copy.featuresTitle}</h2>
+      <div class="feature-grid">
+        {Object.values(FEATURES).map((f) => (
+          <div class="feature-card">
+            <h3>{f.title[l]}</h3>
+            <p>{f.description[l]}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="sparx" class="section">
+    <div class="container narrow center">
+      <p class="kicker">{copy.sparxSubtitle}</p>
+      <h2>{copy.sparxTitle}</h2>
+      <p class="body-text">{SPARX.positioning[l]}</p>
+      <div class="sparx-grid">
+        {SPARX.useCases.map((u) => (
+          <div class="sparx-card">
+            <h3>{u.title[l]}</h3>
+            <p>{u.description[l]}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="premium" class="section alt">
+    <div class="container narrow center">
+      <h2>{copy.premiumTitle}</h2>
+      <p class="body-text">{PREMIUM_COPY.intro[l]}</p>
+      {PREMIUM_FEATURES.length === 0 && (
+        <p class="muted">{PREMIUM_COPY.comingSoonNote[l]}</p>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="center">{copy.exploreTitle}</h2>
+      <p class="body-text center">{copy.exploreBody}</p>
+      <div class="explore-grid">
+        {exploreLinks.map((p) => (
+          <a class="explore-card" href={localePath(lang!, p.topic)}>
+            {p.content[l]?.h1 ?? p.content.en.h1}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section download-cta">
+    <div class="container narrow center">
+      <h2>{copy.downloadTitle}</h2>
+      <p class="body-text">{copy.downloadBody}</p>
+      <CTAButton lang={lang!} ctaKey="primary" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-16) var(--space-24);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-sunken) 100%);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .kicker {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: var(--text-xs);
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-copy h1 {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-5);
+  }
+
+  .lede {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    max-width: 46ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .section {
+    padding-block: var(--space-16);
+  }
+
+  .section.alt {
+    background: var(--bg-sunken);
+  }
+
+  .section h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .narrow {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .center {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .body-text {
+    font-size: var(--text-base);
+    line-height: 1.75;
+    color: var(--text-muted);
+  }
+
+  .muted {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    font-style: italic;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  .feature-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .feature-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .feature-card p {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin: 0;
+  }
+
+  .sparx-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    text-align: left;
+  }
+
+  .sparx-card {
+    background: var(--bg-sunken);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .sparx-card h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-1);
+  }
+
+  .sparx-card p {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin: 0;
+  }
+
+  .explore-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: center;
+    margin-top: var(--space-8);
+  }
+
+  .explore-card {
+    text-decoration: none;
+    color: var(--accent-strong);
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    transition: all var(--transition);
+  }
+
+  .explore-card:hover {
+    background: var(--accent);
+    color: var(--text-on-brand);
+    border-color: var(--accent);
+  }
+
+  .download-cta h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .download-cta .cta {
+    margin-top: var(--space-6);
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-copy h1 {
+      font-size: var(--text-4xl);
+    }
+  }
+</style>

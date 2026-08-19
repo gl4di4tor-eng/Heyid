@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import { ENABLED_LANGUAGES } from "../../../config/languages";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { localePath } from "../../../lib/paths";
+import { UI } from "../../../config/ui-strings";
+
+export function getStaticPaths() {
+  return ENABLED_LANGUAGES.map((lang) => ({ params: { lang: lang.code } }));
+}
+
+const { lang } = Astro.params;
+const l = lang as "pl" | "en";
+
+const allPosts = await getCollection("blog", ({ data }) => data.lang === lang && !data.draft);
+allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const copy = {
+  pl: { title: "Blog HEYID", description: "Artykuły o rozmowach online, poznawaniu ludzi i tłumaczeniu w HEYID.", heading: "Blog" },
+  en: { title: "HEYID Blog", description: "Articles about online conversation, meeting people, and translation in HEYID.", heading: "Blog" },
+}[l];
+---
+
+<BaseLayout lang={lang!} slug="blog" title={copy.title} description={copy.description}>
+  <section class="section">
+    <div class="container narrow">
+      <h1>{copy.heading}</h1>
+      <ul class="post-list">
+        {allPosts.map((post) => (
+          <li>
+            <a href={localePath(lang!, `blog/${post.data.pageSlug}`)}>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+      {allPosts.length === 0 && <p class="muted">{UI.readMore[l]}…</p>}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: var(--space-16) var(--space-24);
+  }
+  .narrow {
+    max-width: 720px;
+  }
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-8);
+  }
+  .post-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .post-list a {
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--transition);
+  }
+  .post-list a:hover {
+    border-color: var(--accent);
+  }
+  .post-list h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+  .post-list p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+</style>

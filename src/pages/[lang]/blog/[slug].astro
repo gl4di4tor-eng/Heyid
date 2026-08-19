@@ -1,0 +1,73 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { UI } from "../../../config/ui-strings";
+import { localePath } from "../../../lib/paths";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { lang: post.data.lang, slug: post.data.pageSlug },
+    props: { post },
+  }));
+}
+
+const { lang } = Astro.params;
+const { post } = Astro.props;
+const l = lang as "pl" | "en";
+const { Content } = await post.render();
+---
+
+<BaseLayout
+  lang={lang!}
+  slug={`blog/${post.data.pageSlug}`}
+  title={`${post.data.title} | HEYID`}
+  description={post.data.description}
+  schemaKind="Article"
+>
+  <article class="section">
+    <div class="container narrow">
+      <a class="back" href={localePath(lang!, "blog")}>&larr; {UI.backToBlog[l]}</a>
+      <h1>{post.data.title}</h1>
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: var(--space-16) var(--space-24);
+  }
+  .narrow {
+    max-width: 680px;
+  }
+  .back {
+    display: inline-block;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-6);
+  }
+  .back:hover {
+    color: var(--accent);
+  }
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-8);
+  }
+  .prose {
+    font-size: var(--text-base);
+    line-height: 1.8;
+  }
+  .prose :global(h2) {
+    font-size: var(--text-2xl);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+  }
+  .prose :global(p) {
+    margin-bottom: var(--space-4);
+    color: var(--text-muted);
+  }
+</style>

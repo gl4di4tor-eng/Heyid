@@ -1,0 +1,127 @@
+---
+import { ENABLED_LANGUAGES } from "../../config/languages";
+import { SITE } from "../../config/site";
+import { UI } from "../../config/ui-strings";
+import { WAITLIST_FORM_ENDPOINT } from "../../config/waitlist";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return ENABLED_LANGUAGES.map((lang) => ({ params: { lang: lang.code } }));
+}
+
+const { lang } = Astro.params;
+const l = lang as "pl" | "en";
+
+const copy = {
+  pl: { title: "Pobierz HEYID", description: "Pobierz aplikację HEYID lub zapisz się, żeby dowiedzieć się pierwszy o starcie." },
+  en: { title: "Download HEYID", description: "Download the HEYID app, or sign up to be the first to know when it launches." },
+}[l];
+---
+
+<BaseLayout lang={lang!} slug="download" title={copy.title} description={copy.description}>
+  <section class="download-page">
+    <div class="container narrow center">
+      {SITE.appStoreUrl ? (
+        <>
+          <h1>{copy.title}</h1>
+          <a class="store-link" href={SITE.appStoreUrl}>
+            {l === "pl" ? "Pobierz z Google Play" : "Get it on Google Play"}
+          </a>
+        </>
+      ) : (
+        <>
+          <h1>{UI.downloadComingSoonTitle[l]}</h1>
+          <p class="body-text">{UI.downloadComingSoonBody[l]}</p>
+
+          {WAITLIST_FORM_ENDPOINT ? (
+            <form class="waitlist" method="POST" action={WAITLIST_FORM_ENDPOINT}>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder={UI.emailPlaceholder[l]}
+                aria-label={UI.emailPlaceholder[l]}
+              />
+              <button type="submit">{l === "pl" ? "Zapisz się" : "Notify me"}</button>
+            </form>
+          ) : (
+            <p class="muted">
+              {l === "pl"
+                ? "Formularz zapisów zostanie włączony wkrótce."
+                : "The signup form will be enabled shortly."}
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .download-page {
+    padding-block: var(--space-24);
+  }
+
+  .narrow {
+    max-width: 560px;
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .body-text {
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-8);
+    line-height: 1.6;
+  }
+
+  .waitlist {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .waitlist input {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.85em 1.2em;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--border);
+    background: var(--bg-raised);
+    color: var(--text);
+    font-size: var(--text-base);
+  }
+
+  .waitlist button {
+    font-family: var(--font-display);
+    font-weight: 600;
+    padding: 0.85em 1.6em;
+    border-radius: var(--radius-full);
+    border: none;
+    background: var(--gradient-globe);
+    color: var(--text-on-brand);
+    cursor: pointer;
+  }
+
+  .store-link {
+    display: inline-block;
+    margin-top: var(--space-4);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 600;
+    padding: 0.85em 1.8em;
+    border-radius: var(--radius-full);
+    background: var(--gradient-globe);
+    color: var(--text-on-brand);
+  }
+
+  .muted {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    font-style: italic;
+  }
+</style>

@@ -1,0 +1,19 @@
+---
+import { SITE } from "../config/site";
+import { localePath } from "../lib/paths";
+
+const target = localePath(SITE.defaultLang);
+---
+
+<!doctype html>
+<html lang={SITE.defaultLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>HEYID</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href={target}>{target}</a>…</p>
+  </body>
+</html>

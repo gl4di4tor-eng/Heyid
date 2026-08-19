@@ -1,0 +1,59 @@
+---
+import { SITE } from "../config/site";
+import { absoluteUrl } from "../lib/paths";
+
+interface Props {
+  /** "WebSite" for the homepage, "WebPage" for generic pSEO pages, "Article" for blog posts, "FAQPage" when a page has a real Q&A section. */
+  kind: "WebSite" | "WebPage" | "Article" | "FAQPage";
+  title: string;
+  description: string;
+  path: string;
+  datePublished?: string;
+  faq?: { question: string; answer: string }[];
+}
+
+const { kind, title, description, path, datePublished, faq } = Astro.props;
+const url = absoluteUrl(path);
+
+let json: Record<string, unknown>;
+
+if (kind === "WebSite") {
+  json = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE.name,
+    url,
+    description,
+  };
+} else if (kind === "Article") {
+  json = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    url,
+    datePublished,
+    publisher: { "@type": "Organization", name: SITE.name },
+  };
+} else if (kind === "FAQPage" && faq?.length) {
+  json = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+} else {
+  json = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url,
+  };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(json)} />

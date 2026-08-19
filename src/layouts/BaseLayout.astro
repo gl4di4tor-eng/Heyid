@@ -1,0 +1,71 @@
+---
+import { SITE } from "../config/site";
+import { getLanguage } from "../config/languages";
+import MetaTags from "../components/MetaTags.astro";
+import Hreflang from "../components/Hreflang.astro";
+import SchemaOrg from "../components/SchemaOrg.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { UI } from "../config/ui-strings";
+import "../styles/tokens.css";
+
+interface Props {
+  lang: string;
+  slug?: string; // path within the language, e.g. "random-chat" — used for hreflang + canonical
+  title: string;
+  description: string;
+  schemaKind?: "WebSite" | "WebPage" | "Article" | "FAQPage";
+  schemaExtra?: Record<string, unknown>;
+  availableLangs?: string[];
+}
+
+const {
+  lang,
+  slug = "",
+  title,
+  description,
+  schemaKind = "WebPage",
+  availableLangs,
+} = Astro.props;
+
+const langConfig = getLanguage(lang);
+const path = `${SITE.base}${lang}/${slug ? slug + "/" : ""}`;
+const skipLabel = UI.skipToContent[lang as "pl" | "en"] ?? UI.skipToContent.en;
+---
+
+<!doctype html>
+<html lang={lang} dir={langConfig?.dir ?? "ltr"}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <MetaTags title={title} description={description} path={path} />
+    <Hreflang slug={slug} availableLangs={availableLangs} />
+    <SchemaOrg kind={schemaKind} title={title} description={description} path={path} />
+    <link rel="icon" href={`${SITE.base}favicon.png`} type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script is:inline>
+      // Blocking, pre-paint theme init — avoids a flash of the wrong theme.
+      (function () {
+        var saved = localStorage.getItem("heyid-theme");
+        var theme =
+          saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="visually-hidden" href="#main">{skipLabel}</a>
+    <Header lang={lang} slug={slug} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

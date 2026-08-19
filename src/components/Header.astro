@@ -1,0 +1,135 @@
+---
+import { SITE } from "../config/site";
+import { HEADER_NAV } from "../config/navigation";
+import { ENABLED_LANGUAGES } from "../config/languages";
+import { UI } from "../config/ui-strings";
+import { localePath } from "../lib/paths";
+import CTAButton from "./CTAButton.astro";
+import DarkModeToggle from "./DarkModeToggle.astro";
+
+interface Props {
+  lang: string;
+  /** current path's slug (without lang prefix) so the switcher can point at the same page in another language */
+  slug?: string;
+}
+
+const { lang, slug = "" } = Astro.props;
+const switcherLabel = UI.languageSwitcher[lang as "pl" | "en"] ?? UI.languageSwitcher.en;
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="brand" href={localePath(lang)}>
+      <img src={`${SITE.base}logo.png`} alt={SITE.name} width="32" height="32" />
+      <span>{SITE.name}</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main">
+      {HEADER_NAV.map((item) => (
+        <a href={item.hash ? `${localePath(lang)}${item.hash}` : localePath(lang, item.href)}>
+          {item.label[lang as "pl" | "en"] ?? item.label.en}
+        </a>
+      ))}
+    </nav>
+
+    <div class="actions">
+      <div class="lang-switcher" aria-label={switcherLabel}>
+        {ENABLED_LANGUAGES.map((l) => (
+          <a
+            href={localePath(l.code, slug)}
+            aria-current={l.code === lang ? "page" : undefined}
+          >
+            {l.code.toUpperCase()}
+          </a>
+        ))}
+      </div>
+      <DarkModeToggle lang={lang} />
+      <CTAButton lang={lang} ctaKey="tryIt" variant="solid" />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding-block: var(--space-3);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    color: var(--text);
+    margin-right: auto;
+  }
+
+  .brand img {
+    border-radius: 8px;
+  }
+
+  .main-nav {
+    display: flex;
+    gap: var(--space-6);
+  }
+
+  .main-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    transition: color var(--transition);
+  }
+
+  .main-nav a:hover {
+    color: var(--text);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .lang-switcher {
+    display: flex;
+    gap: var(--space-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    padding: 2px;
+  }
+
+  .lang-switcher a {
+    text-decoration: none;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--text-muted);
+    padding: 0.35em 0.65em;
+    border-radius: var(--radius-full);
+  }
+
+  .lang-switcher a[aria-current="page"] {
+    background: var(--accent);
+    color: var(--text-on-brand);
+  }
+
+  @media (max-width: 860px) {
+    .main-nav {
+      display: none;
+    }
+  }
+</style>
