@@ -38,7 +38,7 @@ export const SITE = {
    */
   downloadPath: "/download",
   /** Set this the day the app goes live publicly. Leave null during closed testing. */
-  appStoreUrl: null as string | null,
+  appStoreUrl: "https://play.google.com/store/apps/details?id=com.heyid.hey" as string | null,
   defaultLang: "pl",
   enabledLangs: ["pl", "en"] as const,
   social: {
