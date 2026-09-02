@@ -1,38 +1,22 @@
+
 ---
 import { TRANSLATION_DEMO_NOTE } from "../config/app";
-
 interface Props {
   lang: string;
-  /** Pairs of [original, translated] shown in sequence. Keep short — this is a visual, not a transcript. */
-  pairs?: { from: string; to: string; fromFlag: string; toFlag: string }[];
 }
-
-const { lang, pairs } = Astro.props;
+const { lang } = Astro.props;
 const l = lang as "pl" | "en";
-
-const defaultPairs = [
-  { from: "Cześć! Skąd jesteś?", to: "Hi! Where are you from?", fromFlag: "🇵🇱", toFlag: "🇬🇧" },
-  { from: "Miło Cię poznać :)", to: "Nice to meet you :)", fromFlag: "🇵🇱", toFlag: "🇬🇧" },
-];
-
-const shown = pairs ?? defaultPairs;
 ---
-
-<div class="demo" role="img" aria-label={TRANSLATION_DEMO_NOTE[l]}>
-  <div class="phone">
-    {shown.map((pair, i) => (
-      <div class="row" style={`--delay: ${i * 3.2}s`}>
-        <div class="bubble bubble--from">
-          <span class="flag">{pair.fromFlag}</span>
-          <span class="text text--original">{pair.from}</span>
-          <span class="text text--translated">{pair.to}</span>
-        </div>
-      </div>
-    ))}
-  </div>
+<div class="demo">
+  <img
+    src="/app-screenshot.webp"
+    alt={TRANSLATION_DEMO_NOTE[l]}
+    class="phone-screenshot"
+    width="360"
+    loading="eager"
+  />
   <p class="caption">{TRANSLATION_DEMO_NOTE[l]}</p>
 </div>
-
 <style>
   .demo {
     display: flex;
@@ -40,96 +24,13 @@ const shown = pairs ?? defaultPairs;
     align-items: center;
     gap: var(--space-4);
   }
-
-  .phone {
+  .phone-screenshot {
     width: min(360px, 100%);
-    background: var(--bg-raised);
-    border: 1px solid var(--border);
+    height: auto;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
-    padding: var(--space-6) var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+    border: 1px solid var(--border);
   }
-
-  .row {
-    display: flex;
-  }
-
-  .row:nth-child(2) {
-    justify-content: flex-end;
-  }
-
-  .bubble {
-    max-width: 85%;
-    background: var(--bg-sunken);
-    border-radius: var(--radius-md);
-    padding: var(--space-3) var(--space-4);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .row:nth-child(2) .bubble {
-    background: var(--gradient-globe);
-    color: var(--text-on-brand);
-  }
-
-  .flag {
-    font-size: var(--text-sm);
-  }
-
-  .text {
-    font-size: var(--text-base);
-    display: block;
-  }
-
-  .text--translated {
-    display: none;
-    font-style: italic;
-    opacity: 0.85;
-  }
-
-  /* Loop: show original, then swap to translated, per bubble, staggered */
-  .row .bubble {
-    animation: swap 6.4s ease-in-out infinite;
-    animation-delay: var(--delay);
-  }
-
-  .text--original {
-    animation: fade-out 6.4s ease-in-out infinite;
-    animation-delay: var(--delay);
-  }
-
-  .text--translated {
-    animation: fade-in 6.4s ease-in-out infinite;
-    animation-delay: var(--delay);
-  }
-
-  @keyframes fade-out {
-    0%, 45% { display: block; opacity: 1; }
-    50%, 100% { display: none; opacity: 0; }
-  }
-
-  @keyframes fade-in {
-    0%, 45% { display: none; opacity: 0; }
-    50% { display: block; opacity: 0; }
-    60%, 100% { display: block; opacity: 1; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .text--original,
-    .text--translated {
-      animation: none;
-    }
-    .text--translated {
-      display: block;
-      opacity: 1;
-    }
-  }
-
   .caption {
     color: var(--text-muted);
     font-size: var(--text-sm);
