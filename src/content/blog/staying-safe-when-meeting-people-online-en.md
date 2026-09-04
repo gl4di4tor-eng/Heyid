@@ -1,8 +1,11 @@
-lang	en
-pageSlug	staying-safe-when-meeting-people-online
-title	How to Stay Safe When Meeting People Online
-description	A few practical rules worth keeping in mind when meeting new people online — no panic, just common sense.
-date	2026-09-04
+---
+lang: "en"
+pageSlug: "staying-safe-when-meeting-people-online"
+title: "How to Stay Safe When Meeting People Online"
+description: "A few practical rules worth keeping in mind when meeting new people online — no panic, just common sense."
+date: 2026-09-04
+---
+
 Meeting new people online can be a great experience — but just like in real life, it's worth keeping a few basic safety habits in mind. Here are some things worth remembering.
 
 ## Take your time with personal details
