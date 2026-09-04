@@ -1,8 +1,11 @@
-lang	pl
-pageSlug	staying-safe-when-meeting-people-online
-title	Jak bezpiecznie poznawać ludzi online — kilka prostych zasad
-description	Kilka praktycznych zasad, o których warto pamiętać, poznając nowe osoby online — bez paniki, po prostu zdrowy rozsądek.
-date	2026-09-04
+---
+lang: "pl"
+pageSlug: "staying-safe-when-meeting-people-online"
+title: "Jak bezpiecznie poznawać ludzi online — kilka prostych zasad"
+description: "Kilka praktycznych zasad, o których warto pamiętać, poznając nowe osoby online — bez paniki, po prostu zdrowy rozsądek."
+date: 2026-09-04
+---
+
 Poznawanie nowych ludzi online może być świetnym doświadczeniem — ale, tak jak w prawdziwym życiu, warto zachować kilka podstawowych zasad ostrożności. Oto kilka rzeczy, o których warto pamiętać.
 
 ## Nie spiesz się z danymi osobowymi
