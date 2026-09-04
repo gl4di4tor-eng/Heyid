@@ -1,4 +1,3 @@
-
 /**
  * NAVIGATION — header and footer links. `href` is relative to the
  * language root and gets prefixed with /{lang}/ (and the site base)
@@ -34,6 +33,7 @@ export const FOOTER_NAV = {
     title: { pl: "Informacje prawne", en: "Legal" },
     links: [
       { href: "privacy", label: { pl: "Polityka prywatności", en: "Privacy Policy" } },
+      { href: "terms", label: { pl: "Regulamin", en: "Terms of Service" } },
     ],
   },
 };
