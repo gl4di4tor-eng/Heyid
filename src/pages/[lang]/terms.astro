@@ -1,0 +1,169 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "pl" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params;
+const l = lang as "pl" | "en";
+
+const copy = {
+  pl: {
+    title: "Regulamin — HEYID",
+    description: "Regulamin serwisu i aplikacji HEYID — zasady korzystania, konta, Premium i moderacji.",
+    heading: "Regulamin",
+    updated: "Ostatnia aktualizacja: 23.08.2026",
+    sections: [
+      {
+        h: "1. Postanowienia ogólne",
+        p: "Niniejszy regulamin określa zasady korzystania z serwisu i aplikacji HEYID (heyid.online), dostępnej za pośrednictwem strony internetowej oraz aplikacji mobilnej. Korzystając z HEYID, użytkownik akceptuje niniejszy regulamin w całości. Operatorem serwisu jest właściciel, z którym można się skontaktować pod adresem: gl4di4tor@interia.pl",
+      },
+      {
+        h: "2. Wymagania wiekowe",
+        p: "Z HEYID mogą korzystać wyłącznie osoby, które ukończyły 18 lat. Rejestrując konto, użytkownik oświadcza, że spełnia ten wymóg. Konta osób poniżej 18. roku życia będą usuwane bez ostrzeżenia po wykryciu.",
+      },
+      {
+        h: "3. Konto użytkownika",
+        p: "Rejestracja odbywa się poprzez logowanie Google lub przy użyciu własnego adresu e-mail. Użytkownik jest odpowiedzialny za zachowanie poufności danych dostępowych do swojego konta oraz za wszystkie działania podejmowane w ramach konta. Jedna osoba może posiadać jedno konto — zakładanie wielu kont w celu obejścia limitów lub blokad jest zabronione.",
+      },
+      {
+        h: "4. Zasady korzystania i zachowania",
+        p: "Korzystając z HEYID, użytkownik zobowiązuje się nie: publikować treści niezgodnych z prawem, nawiązywać kontaktu z osobami niepełnoletnimi w celach niewłaściwych, publikować treści o charakterze nienawistnym, dyskryminującym, obraźliwym lub grożącym przemocą, wysyłać spamu, treści reklamowych lub prób oszustwa (scam), podszywać się pod inną osobę, ani wykorzystywać serwisu do działań niezgodnych z jego przeznaczeniem. Naruszenie tych zasad może skutkować ostrzeżeniem, czasowym zawieszeniem lub trwałym usunięciem konta, bez zwrotu ewentualnych opłat.",
+      },
+      {
+        h: "5. Moderacja i zgłaszanie nadużyć",
+        p: "HEYID zastrzega sobie prawo do moderowania treści i zachowań w serwisie, w tym do przeglądania zgłoszonych wiadomości w celu weryfikacji naruszeń regulaminu. Użytkownicy mogą blokować innych użytkowników oraz zgłaszać nadpowiednie zachowania. Zgłoszenia są rozpatrywane, a w uzasadnionych przypadkach konto naruszające zasady może zostać zawieszone lub usunięte.",
+      },
+      {
+        h: "6. Premium i płatności",
+        p: "HEYID oferuje opcjonalny plan Premium, który rozszerza możliwości serwisu ponad darmowe dzienne limity. Szczegóły funkcji i cennik Premium są dostępne w aplikacji. Płatności realizowane są za pośrednictwem odpowiedniego dostawcy płatności (np. Google Play, App Store lub zewnętrznego operatora płatności) i podlegają jego regulaminowi. W przypadku subskrypcji cyklicznych, użytkownik może ją anulować w dowolnym momencie zgodnie z zasadami platformy, przez którą dokonano zakupu.",
+      },
+      {
+        h: "7. Ograniczenie odpowiedzialności",
+        p: "HEYID służy do nawiązywania kontaktów z innymi użytkownikami, w tym osobami nieznajomymi. Serwis nie weryfikuje w pełni tożsamości użytkowników i nie ponosi odpowiedzialności za treść rozmów, zachowanie innych użytkowników ani za skutki spotkań lub relacji nawiązanych za pośrednictwem serwisu. Korzystanie z HEYID odbywa się na własną odpowiedzialność użytkownika. Zalecamy zachowanie ostrożności przy udostępnianiu danych osobowych oraz przy organizowaniu spotkań osobistych z osobami poznanymi w serwisie.",
+      },
+      {
+        h: "8. Automatyczne tłumaczenie",
+        p: "Wiadomości w HEYID mogą być tłumaczone automatycznie przy użyciu technologii tłumaczenia maszynowego. Tłumaczenia mogą zawierać nieścisłości lub błędy — HEYID nie gwarantuje ich pełnej dokładności.",
+      },
+      {
+        h: "9. Zmiany regulaminu",
+        p: "HEYID zastrzega sobie prawo do zmiany niniejszego regulaminu. O istotnych zmianach użytkownicy zostaną poinformowani za pośrednictwem serwisu lub podanego adresu e-mail. Dalsze korzystanie z serwisu po wprowadzeniu zmian oznacza ich akceptację.",
+      },
+      {
+        h: "10. Usunięcie konta",
+        p: "Użytkownik może w każdej chwili zażądać usunięcia swojego konta i danych, kontaktując się pod adresem: gl4di4tor@interia.pl. Dane zostaną usunięte zgodnie z zasadami opisanymi w Polityce Prywatności.",
+      },
+      {
+        h: "11. Kontakt",
+        p: "W sprawach dotyczących niniejszego regulaminu prosimy o kontakt: gl4di4tor@interia.pl",
+      },
+    ],
+  },
+  en: {
+    title: "Terms of Service — HEYID",
+    description: "HEYID Terms of Service — rules for using the app, accounts, Premium, and moderation.",
+    heading: "Terms of Service",
+    updated: "Last updated: 23.08.2026",
+    sections: [
+      {
+        h: "1. General provisions",
+        p: "These Terms of Service govern the use of the HEYID service and app (heyid.online), available via the website and mobile app. By using HEYID, you accept these Terms in full. The service operator can be contacted at: gl4di4tor@interia.pl",
+      },
+      {
+        h: "2. Age requirements",
+        p: "HEYID may only be used by individuals who are at least 18 years old. By registering an account, the user confirms they meet this requirement. Accounts belonging to individuals under 18 will be removed without warning upon detection.",
+      },
+      {
+        h: "3. User account",
+        p: "Registration is done via Google login or a self-provided email address. The user is responsible for keeping their account credentials confidential and for all activity carried out through their account. Each person may hold one account — creating multiple accounts to bypass limits or bans is prohibited.",
+      },
+      {
+        h: "4. Usage and conduct rules",
+        p: "By using HEYID, the user agrees not to: post unlawful content, contact minors for improper purposes, post hateful, discriminatory, abusive, or threatening content, send spam, advertising, or scam attempts, impersonate another person, or use the service for purposes inconsistent with its intended use. Violating these rules may result in a warning, temporary suspension, or permanent removal of the account, without refund of any fees paid.",
+      },
+      {
+        h: "5. Moderation and reporting abuse",
+        p: "HEYID reserves the right to moderate content and behavior on the platform, including reviewing reported messages to verify violations of these Terms. Users may block other users and report inappropriate behavior. Reports are reviewed, and in justified cases the offending account may be suspended or removed.",
+      },
+      {
+        h: "6. Premium and payments",
+        p: "HEYID offers an optional Premium plan that extends the service beyond the free daily limits. Feature details and pricing for Premium are available within the app. Payments are processed through the relevant payment provider (e.g. Google Play, App Store, or a third-party payment processor) and are subject to that provider's terms. For recurring subscriptions, the user may cancel at any time in accordance with the rules of the platform through which the purchase was made.",
+      },
+      {
+        h: "7. Limitation of liability",
+        p: "HEYID is designed to connect users with other people, including strangers. The service does not fully verify user identities and is not responsible for the content of conversations, the conduct of other users, or the consequences of meetings or relationships arising through the service. Use of HEYID is at the user's own risk. We recommend exercising caution when sharing personal information and when arranging in-person meetings with people met through the service.",
+      },
+      {
+        h: "8. Automatic translation",
+        p: "Messages on HEYID may be automatically translated using machine translation technology. Translations may contain inaccuracies or errors — HEYID does not guarantee their complete accuracy.",
+      },
+      {
+        h: "9. Changes to these Terms",
+        p: "HEYID reserves the right to modify these Terms. Users will be notified of material changes through the service or via the email address provided. Continued use of the service after changes take effect constitutes acceptance of those changes.",
+      },
+      {
+        h: "10. Account deletion",
+        p: "Users may request deletion of their account and data at any time by contacting: gl4di4tor@interia.pl. Data will be deleted in accordance with the practices described in the Privacy Policy.",
+      },
+      {
+        h: "11. Contact",
+        p: "For questions regarding these Terms, please contact: gl4di4tor@interia.pl",
+      },
+    ],
+  },
+}[l];
+---
+
+<BaseLayout lang={lang!} slug="terms" title={copy.title} description={copy.description} schemaKind="WebSite">
+  <section class="section">
+    <div class="container narrow">
+      <h1>{copy.heading}</h1>
+      <p class="updated">{copy.updated}</p>
+      {copy.sections.map((s) => (
+        <div class="policy-block">
+          <h2>{s.h}</h2>
+          <p class="body-text">{s.p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: var(--space-16);
+  }
+
+  .narrow {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .updated {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-10);
+  }
+
+  .policy-block {
+    margin-bottom: var(--space-8);
+  }
+
+  .policy-block h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .body-text {
+    font-size: var(--text-base);
+    line-height: 1.75;
+    color: var(--text-muted);
+  }
+</style>
