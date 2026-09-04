@@ -1,0 +1,153 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "pl" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params;
+const l = lang as "pl" | "en";
+
+const copy = {
+  pl: {
+    title: "Polityka Prywatności — HEYID",
+    description: "Polityka prywatności serwisu HEYID — jakie dane zbieramy i jak je przetwarzamy.",
+    heading: "Polityka Prywatności",
+    updated: "Ostatnia aktualizacja: 23.08.2026",
+    sections: [
+      {
+        h: "1. Kim jesteśmy",
+        p: "Administratorem danych osobowych zbieranych za pośrednictwem serwisu Heyid (heyid.online) jest właściciel serwisu, z którym można się skontaktować pod adresem e-mail: gl4di4tor@interia.pl",
+      },
+      {
+        h: "2. Jakie dane zbieramy",
+        p: "W związku z korzystaniem z serwisu Heyid zbieramy: dane rejestracyjne (adres e-mail podany samodzielnie lub przez logowanie Google, nazwa wyświetlana, wiek, lokalizacja), treści wiadomości wysyłanych w ramach czatu (tekst, wiadomości głosowe), dane techniczne (adres IP, typ urządzenia i przeglądarki, pliki cookie) oraz dane dotyczące aktywności (dopasowania, historia rozmów, czas logowania).",
+      },
+      {
+        h: "3. W jakim celu przetwarzamy dane",
+        p: "Dane przetwarzamy w celu świadczenia usługi (rejestracja, logowanie, dopasowywanie użytkowników, czat), zapewnienia bezpieczeństwa (blokowanie użytkowników, moderacja treści), wyświetlania reklam za pośrednictwem Google AdSense oraz analizy i poprawy działania serwisu.",
+      },
+      {
+        h: "4. Pliki cookie i reklamy Google",
+        p: "Serwis korzysta z Google AdSense do wyświetlania reklam. Google oraz jego partnerzy mogą używać plików cookie w celu wyświetlania reklam na podstawie wcześniejszych wizyt użytkownika w tym lub innych serwisach. Użytkownik może zarządzać preferencjami reklam pod adresem: https://adssettings.google.com",
+      },
+      {
+        h: "5. Podstawa prawna przetwarzania danych",
+        p: "Dane przetwarzane są zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO), na podstawie: zgody użytkownika (art. 6 ust. 1 lit. a RODO) przy rejestracji, niezbędności do wykonania umowy (art. 6 ust. 1 lit. b RODO) przy świadczeniu usługi oraz prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO) w zakresie bezpieczeństwa i analityki.",
+      },
+      {
+        h: "6. Udostępnianie danych",
+        p: "Dane mogą być udostępniane podmiotom trzecim wyłącznie w zakresie niezbędnym do świadczenia usługi (np. dostawca hostingu, Google AdSense, dostawca logowania Google) oraz gdy wymagają tego przepisy prawa.",
+      },
+      {
+        h: "7. Prawa użytkownika",
+        p: "Użytkownik ma prawo do: dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia danych oraz wniesienia sprzeciwu wobec przetwarzania. W celu skorzystania z tych praw prosimy o kontakt: gl4di4tor@interia.pl",
+      },
+      {
+        h: "8. Okres przechowywania danych",
+        p: "Dane przechowywane są przez czas korzystania z konta oraz do momentu jego usunięcia przez użytkownika lub administratora.",
+      },
+      {
+        h: "9. Kontakt",
+        p: "W sprawach dotyczących ochrony danych osobowych prosimy o kontakt: gl4di4tor@interia.pl",
+      },
+    ],
+  },
+  en: {
+    title: "Privacy Policy — HEYID",
+    description: "HEYID privacy policy — what data we collect and how we process it.",
+    heading: "Privacy Policy",
+    updated: "Last updated: 23.08.2026",
+    sections: [
+      {
+        h: "1. Who we are",
+        p: "The data controller for personal data collected through the Heyid service (heyid.online) is the site owner, who can be contacted at: gl4di4tor@interia.pl",
+      },
+      {
+        h: "2. What data we collect",
+        p: "By using the Heyid service, we collect: registration data (email address self-provided or via Google login, display name, age, location), chat content sent within the service (text, voice messages), technical data (IP address, device and browser type, cookies), and activity data (matches, conversation history, login times).",
+      },
+      {
+        h: "3. Why we process this data",
+        p: "We process data to provide the service (registration, login, user matching, chat), ensure safety (blocking users, content moderation), display ads via Google AdSense, and analyze and improve the service.",
+      },
+      {
+        h: "4. Cookies and Google Ads",
+        p: "This site uses Google AdSense to display advertisements. Google and its partners may use cookies to serve ads based on a user's prior visits to this or other websites. Users may manage their ad preferences at: https://adssettings.google.com",
+      },
+      {
+        h: "5. Legal basis for processing",
+        p: "Data is processed in accordance with Regulation (EU) 2016/679 (GDPR), based on user consent (Art. 6(1)(a) GDPR) at registration, necessity for contract performance (Art. 6(1)(b) GDPR) for service provision, and legitimate interest of the controller (Art. 6(1)(f) GDPR) for security and analytics.",
+      },
+      {
+        h: "6. Data sharing",
+        p: "Data may be shared with third parties only to the extent necessary to provide the service (e.g. hosting provider, Google AdSense, Google login provider) or where required by law.",
+      },
+      {
+        h: "7. User rights",
+        p: "Users have the right to: access their data, rectify it, delete it, restrict processing, data portability, and object to processing. To exercise these rights, please contact: gl4di4tor@interia.pl",
+      },
+      {
+        h: "8. Data retention period",
+        p: "Data is retained for as long as the account is active, until deleted by the user or the administrator.",
+      },
+      {
+        h: "9. Contact",
+        p: "For questions regarding personal data protection, please contact: gl4di4tor@interia.pl",
+      },
+    ],
+  },
+}[l];
+---
+
+<BaseLayout lang={lang!} title={copy.title} description={copy.description} schemaKind="WebSite">
+  <section class="section">
+    <div class="container narrow">
+      <h1>{copy.heading}</h1>
+      <p class="updated">{copy.updated}</p>
+      {copy.sections.map((s) => (
+        <div class="policy-block">
+          <h2>{s.h}</h2>
+          <p class="body-text">{s.p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: var(--space-16);
+  }
+
+  .narrow {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .updated {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-10);
+  }
+
+  .policy-block {
+    margin-bottom: var(--space-8);
+  }
+
+  .policy-block h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .body-text {
+    font-size: var(--text-base);
+    line-height: 1.75;
+    color: var(--text-muted);
+  }
+</style>
