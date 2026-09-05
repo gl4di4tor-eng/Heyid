@@ -8,7 +8,6 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { UI } from "../config/ui-strings";
 import "../styles/tokens.css";
-
 interface Props {
   lang: string;
   slug?: string; // path within the language, e.g. "random-chat" — used for hreflang + canonical
@@ -18,7 +17,6 @@ interface Props {
   schemaExtra?: Record<string, unknown>;
   availableLangs?: string[];
 }
-
 const {
   lang,
   slug = "",
@@ -27,12 +25,10 @@ const {
   schemaKind = "WebPage",
   availableLangs,
 } = Astro.props;
-
 const langConfig = getLanguage(lang);
 const path = `${SITE.base}${lang}/${slug ? slug + "/" : ""}`;
 const skipLabel = UI.skipToContent[lang as "pl" | "en"] ?? UI.skipToContent.en;
 ---
-
 <!doctype html>
 <html lang={lang} dir={langConfig?.dir ?? "ltr"}>
   <head>
@@ -42,14 +38,14 @@ const skipLabel = UI.skipToContent[lang as "pl" | "en"] ?? UI.skipToContent.en;
     <Hreflang slug={slug} availableLangs={availableLangs} />
     <SchemaOrg kind={schemaKind} title={title} description={description} path={path} />
     <link rel="icon" href={`${SITE.base}favicon.png`} type="image/png" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2094722135547757"
+     crossorigin="anonymous"></script>
     <script is:inline>
       // Blocking, pre-paint theme init — avoids a flash of the wrong theme.
       (function () {
