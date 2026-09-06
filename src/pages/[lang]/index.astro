@@ -3,7 +3,7 @@ import { ENABLED_LANGUAGES } from "../../config/languages";
 import { SITE } from "../../config/site";
 import { FEATURES } from "../../config/app";
 import { SPARX } from "../../config/sparx";
-import { PREMIUM_COPY, PREMIUM_FEATURES } from "../../config/premium";
+import { PREMIUM_COPY, PREMIUM_PLANS } from "../../config/premium";
 import { SEO_PAGES } from "../../config/seo-pages";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TranslationDemo from "../../components/TranslationDemo.astro";
@@ -119,12 +119,32 @@ const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
   </section>
 
   <section id="premium" class="section alt">
-    <div class="container narrow center">
-      <h2>{copy.premiumTitle}</h2>
-      <p class="body-text">{PREMIUM_COPY.intro[l]}</p>
-      {PREMIUM_FEATURES.length === 0 && (
-        <p class="muted">{PREMIUM_COPY.comingSoonNote[l]}</p>
-      )}
+    <div class="container">
+      <div class="narrow center">
+        <h2>{copy.premiumTitle}</h2>
+        <p class="body-text">{PREMIUM_COPY.intro[l]}</p>
+      </div>
+      <div class="pricing-grid">
+        {PREMIUM_PLANS.map((plan) => (
+          <div class={`pricing-card ${plan.isPopular ? "popular" : ""} ${plan.isCurrent ? "current" : ""}`}>
+            {plan.isPopular && <span class="pricing-badge">{l === "pl" ? "Najpopularniejszy" : "Most popular"}</span>}
+            {plan.isCurrent && <span class="pricing-badge current-badge">{l === "pl" ? "Plan darmowy" : "Free plan"}</span>}
+            <h3>{plan.name[l]}</h3>
+            <p class="pricing-price">
+              {plan.price[l]}
+              {plan.priceSuffix && <span class="pricing-suffix">{plan.priceSuffix[l]}</span>}
+            </p>
+            <ul class="pricing-features">
+              {plan.features.map((f) => (
+                <li class={f.included ? "" : "excluded"}>
+                  <span class="pricing-icon">{f.included ? "✓" : "✕"}</span>
+                  {f.label[l]}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -275,6 +295,95 @@ const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
     color: var(--text-muted);
     font-size: var(--text-sm);
     margin: 0;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-10);
+  }
+
+  .pricing-card {
+    position: relative;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .pricing-card.popular {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+
+  .pricing-badge {
+    align-self: flex-start;
+    background: var(--accent);
+    color: var(--text-on-brand);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+  }
+
+  .current-badge {
+    background: var(--bg-sunken);
+    color: var(--text-muted);
+  }
+
+  .pricing-card h3 {
+    font-size: var(--text-xl);
+    margin: 0;
+  }
+
+  .pricing-price {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .pricing-suffix {
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .pricing-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    text-align: left;
+  }
+
+  .pricing-features li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+
+  .pricing-features li.excluded {
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  .pricing-icon {
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .pricing-features li.excluded .pricing-icon {
+    color: var(--text-muted);
   }
 
   .explore-grid {
