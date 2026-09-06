@@ -1,25 +1,78 @@
 /**
- * PREMIUM — deliberately minimal. The brief says not to invent Premium
- * features. This array is the ONLY place Premium perks are listed;
- * add real ones here as they're confirmed and every page that renders
- * Premium (home, pricing sections, SEO pages) updates automatically.
+ * PREMIUM — pricing plans as shown in the HEYID mobile app.
+ * This is the single source of truth for plan names, prices, and features.
+ * Every page that renders pricing (home, pricing sections, SEO pages)
+ * should pull from PREMIUM_PLANS.
  */
-export interface PremiumFeature {
-  title: { pl: string; en: string };
-  description: { pl: string; en: string };
+export interface PremiumPlanFeature {
+  label: { pl: string; en: string };
+  included: boolean;
 }
 
-// Intentionally empty until real Premium features are confirmed.
-export const PREMIUM_FEATURES: PremiumFeature[] = [];
+export interface PremiumPlan {
+  id: "free" | "basic" | "standard" | "unlimited";
+  name: { pl: string; en: string };
+  price: { pl: string; en: string }; // e.g. "Za darmo" / "Free"
+  priceSuffix?: { pl: string; en: string }; // e.g. "/miesiąc" / "/month"
+  isCurrent?: boolean;
+  isPopular?: boolean;
+  features: PremiumPlanFeature[];
+}
+
+export const PREMIUM_PLANS: PremiumPlan[] = [
+  {
+    id: "free",
+    name: { pl: "Darmowy", en: "Free" },
+    price: { pl: "Za darmo", en: "Free" },
+    isCurrent: true,
+    features: [
+      { label: { pl: "Czat tekstowy", en: "Text chat" }, included: true },
+      { label: { pl: "Wysyłanie wiadomości głosowych", en: "Send voice messages" }, included: true },
+      { label: { pl: "Tłumaczenie głosowe", en: "Voice translation" }, included: false },
+      { label: { pl: "10 użyć Grok dziennie", en: "10 Grok uses/day" }, included: true },
+      { label: { pl: "20 wiadomości dziennie", en: "20 messages/day" }, included: true },
+    ],
+  },
+  {
+    id: "basic",
+    name: { pl: "Basic", en: "Basic" },
+    price: { pl: "$6.99", en: "$6.99" },
+    priceSuffix: { pl: "/miesiąc", en: "/month" },
+    features: [
+      { label: { pl: "100 minut miesięcznie", en: "100 minutes/month" }, included: true },
+      { label: { pl: "Tłumaczenie głosowe", en: "Voice translation" }, included: true },
+      { label: { pl: "Nielimitowany Grok i wiadomości", en: "Unlimited Grok & messages" }, included: true },
+    ],
+  },
+  {
+    id: "standard",
+    name: { pl: "Standard", en: "Standard" },
+    price: { pl: "$12.99", en: "$12.99" },
+    priceSuffix: { pl: "/miesiąc", en: "/month" },
+    isPopular: true,
+    features: [
+      { label: { pl: "300 minut miesięcznie", en: "300 minutes/month" }, included: true },
+      { label: { pl: "Tłumaczenie głosowe", en: "Voice translation" }, included: true },
+      { label: { pl: "Nielimitowany Grok i wiadomości", en: "Unlimited Grok & messages" }, included: true },
+    ],
+  },
+  {
+    id: "unlimited",
+    name: { pl: "Unlimited", en: "Unlimited" },
+    price: { pl: "$29.99", en: "$29.99" },
+    priceSuffix: { pl: "/miesiąc", en: "/month" },
+    features: [
+      { label: { pl: "500 minut miesięcznie", en: "500 minutes/month" }, included: true },
+      { label: { pl: "Tłumaczenie głosowe", en: "Voice translation" }, included: true },
+      { label: { pl: "Nielimitowany Grok i wiadomości", en: "Unlimited Grok & messages" }, included: true },
+    ],
+  },
+];
 
 export const PREMIUM_COPY = {
   heading: { pl: "HEYID Premium", en: "HEYID Premium" },
   intro: {
-    pl: "HEYID oferuje plan Premium, który wykracza poza darmowe dzienne limity. Szczegóły funkcji pojawią się tutaj wraz z rozwojem aplikacji.",
-    en: "HEYID offers a Premium plan that goes beyond the free daily limits. Feature details will appear here as the app evolves.",
-  },
-  comingSoonNote: {
-    pl: "Lista korzyści Premium jest uzupełniana na bieżąco.",
-    en: "The list of Premium benefits is being filled in as it's finalized.",
+    pl: "Wybierz plan dopasowany do Twoich potrzeb.",
+    en: "Choose the plan that fits your needs.",
   },
 };
