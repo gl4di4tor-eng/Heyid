@@ -1,3 +1,4 @@
+
 ---
 import { SITE } from "../config/site";
 import { getLanguage } from "../config/languages";
@@ -54,6 +55,14 @@ const skipLabel = UI.skipToContent[lang as "pl" | "en"] ?? UI.skipToContent.en;
           saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
         document.documentElement.setAttribute("data-theme", theme);
       })();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7NEVXJYYD"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-K7NEVXJYYD');
     </script>
   </head>
   <body>
