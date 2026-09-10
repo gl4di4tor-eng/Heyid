@@ -29,7 +29,7 @@ export const PREMIUM_PLANS: PremiumPlan[] = [
       { label: { pl: "Czat tekstowy", en: "Text chat" }, included: true },
       { label: { pl: "Wysyłanie wiadomości głosowych", en: "Send voice messages" }, included: true },
       { label: { pl: "Tłumaczenie głosowe", en: "Voice translation" }, included: false },
-      { label: { pl: "10 użyć Grok dziennie", en: "10 Grok uses/day" }, included: true },
+      { label: { pl: "10 użyć SPARX AI dziennie", en: "10 SPARX AI uses/day" }, included: true },
       { label: { pl: "20 wiadomości dziennie", en: "20 messages/day" }, included: true },
     ],
   },
@@ -41,7 +41,7 @@ export const PREMIUM_PLANS: PremiumPlan[] = [
     features: [
       { label: { pl: "100 minut miesięcznie", en: "100 minutes/month" }, included: true },
       { label: { pl: "Tłumaczenie głosowe", en: "Voice translation" }, included: true },
-      { label: { pl: "Nielimitowany Grok i wiadomości", en: "Unlimited Grok & messages" }, included: true },
+      { label: { pl: "Nielimitowany SPARX AI i wiadomości", en: "Unlimited SPARX AI & messages" }, included: true },
     ],
   },
   {
@@ -53,7 +53,7 @@ export const PREMIUM_PLANS: PremiumPlan[] = [
     features: [
       { label: { pl: "300 minut miesięcznie", en: "300 minutes/month" }, included: true },
       { label: { pl: "Tłumaczenie głosowe", en: "Voice translation" }, included: true },
-      { label: { pl: "Nielimitowany Grok i wiadomości", en: "Unlimited Grok & messages" }, included: true },
+      { label: { pl: "Nielimitowany SPARX AI i wiadomości", en: "Unlimited SPARX AI & messages" }, included: true },
     ],
   },
   {
@@ -64,7 +64,7 @@ export const PREMIUM_PLANS: PremiumPlan[] = [
     features: [
       { label: { pl: "500 minut miesięcznie", en: "500 minutes/month" }, included: true },
       { label: { pl: "Tłumaczenie głosowe", en: "Voice translation" }, included: true },
-      { label: { pl: "Nielimitowany Grok i wiadomości", en: "Unlimited Grok & messages" }, included: true },
+      { label: { pl: "Nielimitowany SPARX AI i wiadomości", en: "Unlimited SPARX AI & messages" }, included: true },
     ],
   },
 ];
