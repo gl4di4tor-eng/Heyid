@@ -5,6 +5,7 @@ import { FEATURES } from "../../config/app";
 import { SPARX } from "../../config/sparx";
 import { PREMIUM_COPY, PREMIUM_PLANS } from "../../config/premium";
 import { SEO_PAGES } from "../../config/seo-pages";
+import { SEO_CATEGORIES } from "../../config/seo-categories";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TranslationDemo from "../../components/TranslationDemo.astro";
 import CTAButton from "../../components/CTAButton.astro";
@@ -61,6 +62,11 @@ const copy = {
 }[l];
 
 const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
+
+const exploreGroups = SEO_CATEGORIES.map((cat) => ({
+  ...cat,
+  pages: exploreLinks.filter((p) => cat.topics.includes(p.topic)),
+})).filter((g) => g.pages.length > 0);
 ---
 
 <BaseLayout lang={lang!} title={copy.title} description={copy.description} schemaKind="WebSite">
@@ -152,13 +158,35 @@ const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
     <div class="container">
       <h2 class="center">{copy.exploreTitle}</h2>
       <p class="body-text center">{copy.exploreBody}</p>
-      <div class="explore-grid">
-        {exploreLinks.map((p) => (
-          <a class="explore-card" href={localePath(lang!, p.topic)}>
-            {p.content[l]?.h1 ?? p.content.en.h1}
-          </a>
-        ))}
-      </div>
+
+      {exploreGroups.map((group, i) => (
+        <div class="explore-group">
+          <h3 class="explore-group-title">{group.label[l]}</h3>
+          <div class="explore-row-wrap">
+            <button
+              class="explore-arrow explore-arrow-left"
+              aria-label={l === "pl" ? "Przewiń w lewo" : "Scroll left"}
+              data-row={`explore-row-${i}`}
+            >
+              ‹
+            </button>
+            <div class="explore-row" id={`explore-row-${i}`}>
+              {group.pages.map((p) => (
+                <a class="explore-card" href={localePath(lang!, p.topic)}>
+                  {p.content[l]?.h1 ?? p.content.en.h1}
+                </a>
+              ))}
+            </div>
+            <button
+              class="explore-arrow explore-arrow-right"
+              aria-label={l === "pl" ? "Przewiń w prawo" : "Scroll right"}
+              data-row={`explore-row-${i}`}
+            >
+              ›
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   </section>
 
@@ -170,6 +198,18 @@ const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  document.querySelectorAll(".explore-arrow").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const rowId = btn.getAttribute("data-row");
+      const row = document.getElementById(rowId!);
+      if (!row) return;
+      const dir = btn.classList.contains("explore-arrow-left") ? -1 : 1;
+      row.scrollBy({ left: dir * 280, behavior: "smooth" });
+    });
+  });
+</script>
 
 <style>
   .hero {
@@ -386,15 +426,34 @@ const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
     color: var(--text-muted);
   }
 
-  .explore-grid {
+  .explore-group {
+    margin-top: var(--space-10);
+  }
+
+  .explore-group-title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+  }
+
+  .explore-row-wrap {
+    position: relative;
+  }
+
+  .explore-row {
     display: flex;
-    flex-wrap: wrap;
     gap: var(--space-3);
-    justify-content: center;
-    margin-top: var(--space-8);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: var(--space-2);
+    scrollbar-width: none;
+  }
+
+  .explore-row::-webkit-scrollbar {
+    display: none;
   }
 
   .explore-card {
+    flex: 0 0 auto;
     text-decoration: none;
     color: var(--accent-strong);
     background: var(--bg-raised);
@@ -403,6 +462,7 @@ const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
     padding: var(--space-3) var(--space-5);
     font-size: var(--text-sm);
     font-weight: 600;
+    white-space: nowrap;
     transition: all var(--transition);
   }
 
@@ -410,6 +470,35 @@ const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
     background: var(--accent);
     color: var(--text-on-brand);
     border-color: var(--accent);
+  }
+
+  .explore-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-raised);
+    cursor: pointer;
+    font-size: var(--text-lg);
+    line-height: 1;
+    z-index: 1;
+  }
+
+  .explore-arrow-left {
+    left: -12px;
+  }
+
+  .explore-arrow-right {
+    right: -12px;
+  }
+
+  @media (max-width: 640px) {
+    .explore-arrow {
+      display: none;
+    }
   }
 
   .download-cta h2 {
