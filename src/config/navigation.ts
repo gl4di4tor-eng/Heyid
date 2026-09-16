@@ -25,6 +25,7 @@ export const FOOTER_NAV = {
   company: {
     title: { pl: "HEYID", en: "HEYID" },
     links: [
+      { href: "about", label: { pl: "O nas", en: "About us" } },
       { href: "blog", label: { pl: "Blog", en: "Blog" } },
       { href: "download", label: { pl: "Pobierz", en: "Download" } },
     ],
