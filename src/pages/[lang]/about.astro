@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "pl" } }, { params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params;
+const l = lang as "pl" | "en";
+
+const copy = {
+  pl: {
+    title: "O nas — HEYID",
+    description: "Poznaj HEYID — miejsce, gdzie rozmowy z nieznajomymi z całego świata zaczynają się bez barier językowych.",
+    heading: "O nas",
+    sections: [
+      {
+        h: "Dlaczego powstał HEYID",
+        p: "HEYID powstał z prostej obserwacji: najciekawsze rozmowy często zdarzają się przypadkiem, z ludźmi, których nigdy wcześniej nie spotkaliśmy. Problem w tym, że w prawdziwym świecie taka okazja rzadko się trafia — a jeśli już, to często stoi na przeszkodzie język. Chcieliśmy to zmienić.",
+      },
+      {
+        h: "Co robimy",
+        p: "HEYID łączy ludzi z całego świata w rozmowach jeden na jeden, z automatycznym tłumaczeniem w czasie rzeczywistym. Nie musisz znać języka drugiej osoby, żeby zacząć rozmawiać — technologia robi to za was, a wy możecie skupić się na samej rozmowie.",
+      },
+      {
+        h: "Dla kogo to jest",
+        p: "Dla każdego, kto ma ochotę porozmawiać z kimś nowym — czy to z nudów wieczorem, z ciekawości świata, czy po prostu dlatego, że akurat nikogo innego nie ma w pobliżu. Nie trzeba mieć konkretnego celu ani planu na rozmowę — wystarczy chęć.",
+      },
+      {
+        h: "Bezpieczeństwo i moderacja",
+        p: "Zależy nam na tym, żeby rozmowy na HEYID były bezpieczne. Dlatego stosujemy moderację treści i mechanizmy blokowania użytkowników naruszających zasady. Więcej informacji znajdziesz w naszym Regulaminie i Polityce Prywatności.",
+      },
+      {
+        h: "Skontaktuj się z nami",
+        p: "Masz pytania, uwagi albo pomysł na współpracę? Napisz do nas: gl4di4tor@interia.pl",
+      },
+    ],
+  },
+  en: {
+    title: "About us — HEYID",
+    description: "Learn about HEYID — a place where conversations with strangers from around the world start without language barriers.",
+    heading: "About us",
+    sections: [
+      {
+        h: "Why HEYID exists",
+        p: "HEYID started with a simple observation: the most interesting conversations often happen by accident, with people we've never met before. The problem is that in the real world, this kind of chance rarely comes along — and when it does, language often gets in the way. We wanted to change that.",
+      },
+      {
+        h: "What we do",
+        p: "HEYID connects people from around the world in one-on-one conversations, with real-time automatic translation. You don't need to know the other person's language to start talking — the technology handles that, so you can focus on the conversation itself.",
+      },
+      {
+        h: "Who it's for",
+        p: "Anyone who feels like talking to someone new — whether out of boredom on a quiet evening, curiosity about the world, or simply because there's no one else around right now. You don't need a specific goal or a plan for the conversation — just the willingness to start one.",
+      },
+      {
+        h: "Safety and moderation",
+        p: "We care about conversations on HEYID being safe. That's why we use content moderation and mechanisms to block users who violate our rules. You can find more details in our Terms of Service and Privacy Policy.",
+      },
+      {
+        h: "Get in touch",
+        p: "Have a question, feedback, or a partnership idea? Reach out: gl4di4tor@interia.pl",
+      },
+    ],
+  },
+}[l];
+---
+
+<BaseLayout lang={lang!} slug="about" title={copy.title} description={copy.description} schemaKind="WebSite">
+  <section class="section">
+    <div class="container narrow">
+      <h1>{copy.heading}</h1>
+      {copy.sections.map((s) => (
+        <div class="policy-block">
+          <h2>{s.h}</h2>
+          <p class="body-text">{s.p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: var(--space-16);
+  }
+
+  .narrow {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-10);
+  }
+
+  .policy-block {
+    margin-bottom: var(--space-8);
+  }
+
+  .policy-block h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .body-text {
+    font-size: var(--text-base);
+    line-height: 1.75;
+    color: var(--text-muted);
+  }
+</style>
