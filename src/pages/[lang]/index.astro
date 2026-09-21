@@ -5,7 +5,6 @@ import { FEATURES } from "../../config/app";
 import { SPARX } from "../../config/sparx";
 import { PREMIUM_COPY, PREMIUM_PLANS } from "../../config/premium";
 import { SEO_PAGES } from "../../config/seo-pages";
-import { SEO_CATEGORIES } from "../../config/seo-categories";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TranslationDemo from "../../components/TranslationDemo.astro";
 import CTAButton from "../../components/CTAButton.astro";
@@ -61,12 +60,29 @@ const copy = {
   },
 }[l];
 
-const exploreLinks = SEO_PAGES.filter((p) => !p.countrySlug);
+/**
+ * IMPORTANT: the homepage links only to this small, curated set of core
+ * topics — no country variants, no niche/dating micro-topics. Linking the
+ * full SEO_PAGES set (140+ near-duplicate pages) from the homepage risks
+ * being read as scaled/doorway content and can drag down trust for the
+ * whole domain. Country and niche pages still exist and get indexed via
+ * the sitemap and cross-links in relatedTopics — they just don't need a
+ * spot on the single most important page of the site.
+ */
+const CORE_EXPLORE_TOPICS = [
+  "random-chat",
+  "anonymous-chat",
+  "talk-to-strangers",
+  "meet-new-people",
+  "international-chat",
+  "language-exchange",
+];
 
-const exploreGroups = SEO_CATEGORIES.map((cat) => ({
-  ...cat,
-  pages: exploreLinks.filter((p) => cat.topics.includes(p.topic)),
-})).filter((g) => g.pages.length > 0);
+const exploreLinks = SEO_PAGES.filter(
+  (p) => !p.countrySlug && CORE_EXPLORE_TOPICS.includes(p.topic)
+).sort(
+  (a, b) => CORE_EXPLORE_TOPICS.indexOf(a.topic) - CORE_EXPLORE_TOPICS.indexOf(b.topic)
+);
 ---
 
 <BaseLayout lang={lang!} title={copy.title} description={copy.description} schemaKind="WebSite">
@@ -159,34 +175,15 @@ const exploreGroups = SEO_CATEGORIES.map((cat) => ({
       <h2 class="center">{copy.exploreTitle}</h2>
       <p class="body-text center">{copy.exploreBody}</p>
 
-      {exploreGroups.map((group, i) => (
-        <div class="explore-group">
-          <h3 class="explore-group-title">{group.label[l]}</h3>
-          <div class="explore-row-wrap">
-            <button
-              class="explore-arrow explore-arrow-left"
-              aria-label={l === "pl" ? "Przewiń w lewo" : "Scroll left"}
-              data-row={`explore-row-${i}`}
-            >
-              ‹
-            </button>
-            <div class="explore-row" id={`explore-row-${i}`}>
-              {group.pages.map((p) => (
-                <a class="explore-card" href={localePath(lang!, p.topic)}>
-                  {p.content[l]?.h1 ?? p.content.en.h1}
-                </a>
-              ))}
-            </div>
-            <button
-              class="explore-arrow explore-arrow-right"
-              aria-label={l === "pl" ? "Przewiń w prawo" : "Scroll right"}
-              data-row={`explore-row-${i}`}
-            >
-              ›
-            </button>
-          </div>
+      <div class="explore-row-wrap">
+        <div class="explore-row">
+          {exploreLinks.map((p) => (
+            <a class="explore-card" href={localePath(lang!, p.topic)}>
+              {p.content[l]?.h1 ?? p.content.en.h1}
+            </a>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   </section>
 
@@ -198,18 +195,6 @@ const exploreGroups = SEO_CATEGORIES.map((cat) => ({
     </div>
   </section>
 </BaseLayout>
-
-<script>
-  document.querySelectorAll(".explore-arrow").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const rowId = btn.getAttribute("data-row");
-      const row = document.getElementById(rowId!);
-      if (!row) return;
-      const dir = btn.classList.contains("explore-arrow-left") ? -1 : 1;
-      row.scrollBy({ left: dir * 280, behavior: "smooth" });
-    });
-  });
-</script>
 
 <style>
   .hero {
@@ -279,12 +264,6 @@ const exploreGroups = SEO_CATEGORIES.map((cat) => ({
     font-size: var(--text-base);
     line-height: 1.75;
     color: var(--text-muted);
-  }
-
-  .muted {
-    color: var(--text-muted);
-    font-size: var(--text-sm);
-    font-style: italic;
   }
 
   .feature-grid {
@@ -426,34 +405,18 @@ const exploreGroups = SEO_CATEGORIES.map((cat) => ({
     color: var(--text-muted);
   }
 
-  .explore-group {
-    margin-top: var(--space-10);
-  }
-
-  .explore-group-title {
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-4);
-  }
-
   .explore-row-wrap {
-    position: relative;
+    margin-top: var(--space-8);
   }
 
   .explore-row {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-3);
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding-bottom: var(--space-2);
-    scrollbar-width: none;
-  }
-
-  .explore-row::-webkit-scrollbar {
-    display: none;
   }
 
   .explore-card {
-    flex: 0 0 auto;
     text-decoration: none;
     color: var(--accent-strong);
     background: var(--bg-raised);
@@ -470,35 +433,6 @@ const exploreGroups = SEO_CATEGORIES.map((cat) => ({
     background: var(--accent);
     color: var(--text-on-brand);
     border-color: var(--accent);
-  }
-
-  .explore-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background: var(--bg-raised);
-    cursor: pointer;
-    font-size: var(--text-lg);
-    line-height: 1;
-    z-index: 1;
-  }
-
-  .explore-arrow-left {
-    left: -12px;
-  }
-
-  .explore-arrow-right {
-    right: -12px;
-  }
-
-  @media (max-width: 640px) {
-    .explore-arrow {
-      display: none;
-    }
   }
 
   .download-cta h2 {
