@@ -30,6 +30,13 @@ const copy = {
           <li>
             <a href={localePath(lang!, `blog/${post.data.pageSlug}`)}>
               <h2>{post.data.title}</h2>
+              <time class="post-date" datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString(l === "pl" ? "pl-PL" : "en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
               <p>{post.data.description}</p>
             </a>
           </li>
@@ -72,6 +79,12 @@ const copy = {
   }
   .post-list h2 {
     font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+  .post-list .post-date {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
     margin-bottom: var(--space-2);
   }
   .post-list p {
